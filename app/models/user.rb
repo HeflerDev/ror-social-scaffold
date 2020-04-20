@@ -13,4 +13,12 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :friends, through: :friendships
 
+  def add_friend(another_user)
+    friends << another_user
+  end
+
+  def is_friend?(another_user)
+    friends.include?(another_user)
+  end
+
 end
