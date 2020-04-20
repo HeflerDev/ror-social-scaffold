@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  delete 'remove_friend', to: 'friendships#destroy'
+
   root 'posts#index'
 
   devise_for :users
-  
+
   resources :friendships
 
   resources :users, only: [:index, :show]
