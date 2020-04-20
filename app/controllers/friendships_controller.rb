@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   def create
-    Friendship.create!(friendship_params)
+    current_user.friendships.create!(friendship_params)
     redirect_to users_path
   end
 
