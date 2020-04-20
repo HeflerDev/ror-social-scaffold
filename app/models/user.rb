@@ -21,4 +21,7 @@ class User < ApplicationRecord
     friends.include?(another_user)
   end
 
+  def remove_friend(another_user)
+    
+  end
 end
