@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
 
   has_many :friendships, dependent: :destroy
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -21,7 +23,4 @@ class User < ApplicationRecord
     friends.include?(another_user)
   end
 
-  def remove_friend(another_user)
-    
-  end
 end

@@ -1,13 +1,5 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
-    <% if current_user.is_friend?(@user) %>
-      <button><%=link_to 'Remove Friend', remove_friend_path(user_id: @user.id), class:'btn btn-danger', method: :delete %></button>
-    <%else%>
-    <%= form_for current_user.friendships.build(friend: @user) do |f| %>
-      <%= f.hidden_field :friend_id %>
-      <button>Add Friend</button>
-    <% end %>
-    <% end %>
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">

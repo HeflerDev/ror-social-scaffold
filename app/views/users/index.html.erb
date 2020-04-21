@@ -1,12 +1,20 @@
 <section class="users-section">
   <ul class="users-list">
     <% @users.each do |user| %>
-      <li>
-        Name: <%= user.name %>
-        <span class="profile-link">
-          <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
-        </span>
-      </li>
+    <li>
+      Name: <%= user.name %>
+      <% if current_user.is_friend?(user) %>
+        <button><%=link_to 'Remove Friend', remove_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
+      <%else%>
+        <%= form_for current_user.friendships.build(friend: user) do |f| %>
+          <%= f.hidden_field :friend_id %>
+          <button>Add Friend</button>
+        <% end %>
+      <% end %>
+      <span class="profile-link">
+        <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
+      </span>
+    </li>
     <% end %>
   </ul>
 </section>
