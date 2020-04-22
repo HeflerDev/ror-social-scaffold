@@ -6,4 +6,23 @@
       <%= render @posts %>
     </ul>
   </article>
+  <!-- Show Itens only to the logged_in user -->
+  <% if @user == current_user %>
+  <article>
+    <h3>Pending Requests</h3>
+    <% @user.pending_friends.each do |user| %>
+    <br>
+    <%= user.name %>
+  <% end %>
+  </article>
+  <article>
+    <h3>Friend Requests</h3>
+  <% @user.friend_requests.each do |user| %>
+    <br>
+    <%= user.name %>
+    <button><%= link_to 'Accept', user_edit_path ''%></button>
+    <button><%= link_to 'Deny', ''%></button>
+  <% end %>
+  </article>
+  <% end %>
 </section>

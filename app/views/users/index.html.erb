@@ -1,15 +1,21 @@
 <section class="users-section">
   <ul class="users-list">
     <% @users.each do |user| %>
+    <!-- Avoid Showing Current User -->
+    <% if current_user != user %>
     <li>
       Name: <%= user.name %>
+
       <!-- Request and remove friend button -->
       <% if current_user.is_friend?(user) %>
+        <!-- Another Condition if is_friend or it is confirmed -->
         <button><%=link_to 'Remove Friend', remove_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
-      <%else%>
+
+      <% else %>
         <%= form_for current_user.friendships.build(friend: user) do |f| %>
           <%= f.hidden_field :friend_id %>
-          <button>Add Friend</button>
+          <%= f.hidden_field :confirmed, value: false %>
+          <button>Request Friend</button>
         <% end %>
       <% end %>
 
@@ -18,5 +24,7 @@
       </span>
     </li>
     <% end %>
+    <% end %>
+
   </ul>
 </section>

@@ -1,3 +1,4 @@
+
 class FriendshipsController < ApplicationController
 
   def create
@@ -11,8 +12,12 @@ class FriendshipsController < ApplicationController
     redirect_to users_path
   end
 
+  def update
+
+  end
+
   private
     def friendship_params
-      params.require(:friendship).permit(:friend_id)
+      params.require(:friendship).permit(:friend_id, :confirmed)
     end
 end
