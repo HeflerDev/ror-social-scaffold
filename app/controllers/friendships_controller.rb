@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+
   def create
     current_user.friendships.create!(friendship_params)
     redirect_to users_path
@@ -12,6 +13,6 @@ class FriendshipsController < ApplicationController
 
   private
     def friendship_params
-      params.require(:friendship).permit(:user_id, :friend_id)
+      params.require(:friendship).permit(:friend_id)
     end
 end

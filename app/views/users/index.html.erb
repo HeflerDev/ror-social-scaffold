@@ -3,6 +3,7 @@
     <% @users.each do |user| %>
     <li>
       Name: <%= user.name %>
+      <!-- Request and remove friend button -->
       <% if current_user.is_friend?(user) %>
         <button><%=link_to 'Remove Friend', remove_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
       <%else%>
@@ -11,6 +12,7 @@
           <button>Add Friend</button>
         <% end %>
       <% end %>
+
       <span class="profile-link">
         <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
       </span>
