@@ -13,16 +13,18 @@
     <% @user.pending_friends.each do |user| %>
     <br>
     <%= user.name %>
-  <% end %>
+    <% end %>
   </article>
   <article>
     <h3>Friend Requests</h3>
-  <% @user.friend_requests.each do |user| %>
-    <br>
-    <%= user.name %>
-    <button><%= link_to 'Accept', user_edit_path ''%></button>
-    <button><%= link_to 'Deny', ''%></button>
-  <% end %>
+    <% @user.friend_requests.each do |user| %>
+      <br>
+      <%= user.name %>
+      <%= form_for current_user.inverse_friendships.update(confirmed: true) do |f| %>
+        <button>Accept</button>
+      <% end %>
+      <button><%= link_to 'Deny', ''%></button>
+    <% end %>
   </article>
   <% end %>
 </section>
