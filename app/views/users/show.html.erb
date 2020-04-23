@@ -20,9 +20,7 @@
     <% @user.friend_requests.each do |user| %>
       <br>
       <%= user.name %>
-      <%= form_for current_user.inverse_friendships.update(confirmed: true) do |f| %>
-        <button>Accept</button>
-      <% end %>
+      <button><%= link_to 'Accept' %></button>
       <button><%= link_to 'Deny', ''%></button>
     <% end %>
   </article>
