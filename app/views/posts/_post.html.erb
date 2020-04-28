@@ -1,4 +1,5 @@
-<% if current_user.is_friend?(post.user) || post.user == current_user %>
+<!-- This Big Conditional ensures that both are friends and the friendship is confirmed -->
+<% if current_user.is_friend?(post.user) && current_user.friend_is_confirmed?(post.user) || current_user.is_friended?(post.user) && current_user.user_is_confirmed?(post.user) || post.user == current_user %>
 <li class="post">
   <div>
     <div class='post-attribution' >

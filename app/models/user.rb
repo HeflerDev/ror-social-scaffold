@@ -24,6 +24,10 @@ class User < ApplicationRecord
     friends.include?(another_user)
   end
 
+  def is_friended?(another_user)
+    inverse_friends.include?(another_user)
+  end
+
   def friend_is_confirmed?(another_user)
     friendships.find_by(friend_id: another_user).confirmed
   end
