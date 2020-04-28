@@ -20,11 +20,7 @@
     <% @user.friend_requests.each do |user| %>
       <br>
       <%= user.name %>
-      <%= form_for current_user.friendships.update(friend: user) do |f| %>
-        <%= f.hidden_field :friend_id %>
-        <%= f.hidden_field :confirmed, value: true %>
-        <button>Accept</button>
-      <% end %>
+      <button><%=link_to 'Confirm', confirm_path(user_id: user.id), class:'btn btn-danger', method: :post %></button>
       <button><%= link_to 'Deny', ''%></button>
     <% end %>
   </article>

@@ -18,8 +18,13 @@ class FriendshipsController < ApplicationController
     redirect_to users_path
   end
 
+  def update
+    another_user = User.find params[:user_id]
+    current_user.confirm_friend(another_user)
+  end
+
   private
     def friendship_params
-      params.require(:friendship).permit(:friend_id, :confirmed)
+      params.require(:friendship).permit(:user_id, :friend_id, :confirmed)
     end
 end
