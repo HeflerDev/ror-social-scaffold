@@ -5,18 +5,26 @@
     <% if current_user != user %>
     <li>
       Name: <%= user.name %>
-
-      <!-- Request and remove friend button -->
-      <% if current_user.is_friend?(user) %>
-        <!-- Another Condition if is_friend or it is confirmed -->
-        <button><%=link_to 'Remove Friend', remove_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
-
+      <!-- Friend is confirmed -->
+      <% if user.is_friend?(current_user) &&  user.friend_is_confirmed?(current_user)%>
+      <br>
+        <button><%=link_to 'Remove Friend', deny_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
+        <!-- Pending Request -->
+      <% elsif user.is_friend?(current_user) &&  ! user.friend_is_confirmed?(current_user)%>
+        <br>
+        <h3> Pending Request </h3>
+        <button><%=link_to 'Deny Request', deny_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
+        <!-- Cancel Request Sent -->
+        <% elsif current_user.is_friend?(user) %>
+          <button><%=link_to 'Remove Request', remove_friend_path(user_id: user.id), class:'btn btn-danger', method: :delete %></button>
+        <!-- Request Friendship -->
       <% else %>
         <%= form_for current_user.friendships.build(friend: user) do |f| %>
           <%= f.hidden_field :friend_id %>
           <%= f.hidden_field :confirmed, value: false %>
           <button>Request Friend</button>
         <% end %>
+
       <% end %>
 
       <span class="profile-link">

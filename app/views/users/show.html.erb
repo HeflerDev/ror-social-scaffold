@@ -20,8 +20,8 @@
     <% @user.friend_requests.each do |user| %>
       <br>
       <%= user.name %>
-      <button><%=link_to 'Confirm', confirm_path(user_id: user.id), class:'btn btn-danger', method: :post %></button>
-      <button><%= link_to 'Deny', ''%></button>
+      <button><%=link_to 'Confirm', confirm_path(user_id: user.id), method: :post %></button>
+      <button><%=link_to 'Deny', deny_friend_path(user_id: user.id), method: :delete %></button>
     <% end %>
   </article>
   <% end %>
