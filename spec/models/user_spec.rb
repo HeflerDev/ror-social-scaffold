@@ -24,4 +24,7 @@ RSpec.describe User, type: :model do
     subject.password = nil
     expect(subject).to be_invalid
   end
+
+  it { should have_many(:posts) }
+  it { should have_many(:comments) }
 end

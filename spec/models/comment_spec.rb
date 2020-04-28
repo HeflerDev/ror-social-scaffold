@@ -34,4 +34,7 @@ RSpec.describe Comment, type: :model do
     expect(subject).to be_invalid
   end
 
+  it { should belong_to(:user) }
+  it { should belong_to(:post)}
+
 end

@@ -27,4 +27,7 @@ RSpec.describe Post, type: :model do
     expect(subject).to be_invalid
   end
 
+  it { should belong_to(:user) }
+  it { should have_many(:comments) }
+
 end
