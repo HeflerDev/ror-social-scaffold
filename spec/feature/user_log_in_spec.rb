@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Visitor signs in' do
-
   background do
     User.create(name: 'user', email: 'user@email.com', password: '123456')
   end
@@ -17,7 +16,6 @@ RSpec.feature 'Visitor signs in' do
     expect(page).to have_content('Sign in')
     expect(page).to have_content('Invalid Email or password')
   end
-
 end
 
 def sign_in_with(email, password)

@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Friendship Interactions:' do
-  let(:user_one) { User.create(email:'user_one@email', name:'user_one', password:'dafnadnao') }
-  let(:user_two) { User.create(email:'user_two@email', name:'user_two', password:'advavvvava') }
+  let(:user_one) { User.create(email: 'user_one@email', name: 'user_one', password: 'dafnadnao') }
+  let(:user_two) { User.create(email: 'user_two@email', name: 'user_two', password: 'advavvvava') }
 
-  describe "when user add friend" do
+  describe 'when user add friend' do
     it 'is able to send friendship requests' do
       sign_in(user_one.email, user_one.password)
       expect(page).to have_content('Sign out')
-      send_friend_request(user_one,user_two)
+      send_friend_request(user_one, user_two)
 
       expect(user_one.is_friend?(user_two)).to be true
       expect(user_two.is_friended?(user_one)).to be true

@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
 
-
   has_many :friendships, dependent: :destroy
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :inverse_friends, through: :inverse_friendships, source: :user
@@ -20,6 +19,8 @@ class User < ApplicationRecord
     friends << another_user
   end
 
+  # rubocop:disable Naming/PredicateName
+
   def is_friend?(another_user)
     friends.include?(another_user)
   end
@@ -27,6 +28,8 @@ class User < ApplicationRecord
   def is_friended?(another_user)
     inverse_friends.include?(another_user)
   end
+
+  # rubocop:enable Naming/PredicateName
 
   def friend_is_confirmed?(another_user)
     friendships.find_by(friend_id: another_user).confirmed
@@ -38,18 +41,17 @@ class User < ApplicationRecord
 
   # Users who have yet to confirm friend requests
   def pending_friends
-    friendships.map{|friendship| friendship.friend if !friendship.confirmed}.compact
+    friendships.map { |friendship| friendship.friend unless friendship.confirmed }.compact
   end
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map{|friendship| friendship.user if !friendship.confirmed}.compact
+    inverse_friendships.map { |friendship| friendship.user unless friendship.confirmed }.compact
   end
 
   def confirm_friend(user)
-    friendship = inverse_friendships.find{ |friendship| friendship.user == user }
+    friendship = inverse_friendships.find { |f| f.user == user }
     friendship.confirmed = true
     friendship.save
   end
-
 end
