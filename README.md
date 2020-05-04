@@ -17,7 +17,7 @@ TBA
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-
+gem 'rspec-rails', '~> 4.0.0'
 Ruby: 2.6.3
 Rails: 5.2.3
 Postgres: >=9.5
@@ -82,4 +82,3 @@ TBA
 ## 📝 License
 
 TBA
-

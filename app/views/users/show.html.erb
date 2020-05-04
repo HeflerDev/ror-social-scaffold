@@ -1,9 +1,53 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
+
+<%if @user != current_user %>
+
+  <% if @user.is_friend?(current_user) &&  @user.friend_is_confirmed?(current_user)%>
+  <br>
+    <button><%=link_to 'Remove Friend', deny_friend_path(user_id: @user.id), class:'btn btn-danger', method: :delete %></button>
+    <!-- Pending Request -->
+  <% elsif @user.is_friend?(current_user) &&  ! @user.friend_is_confirmed?(current_user)%>
+    <br>
+    <h3> Pending Request </h3>
+    <button><%=link_to 'Deny Request', deny_friend_path(user_id: @user.id), class:'btn btn-danger', method: :delete %></button>
+    <!-- Cancel Request Sent -->
+    <% elsif current_user.is_friend?(@user) %>
+      <button><%=link_to 'Remove Request', remove_friend_path(user_id: @user.id), class:'btn btn-danger', method: :delete %></button>
+    <!-- Request Friendship -->
+  <% else %>
+    <%= form_for current_user.friendships.build(friend: @user) do |f| %>
+      <%= f.hidden_field :friend_id %>
+      <%= f.hidden_field :confirmed, value: false %>
+      <button>Request Friend</button>
+    <% end %>
+  <% end %>
+
+<% end %>
+
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">
       <%= render @posts %>
     </ul>
   </article>
+  <!-- Show Itens only to the logged_in user -->
+  <% if @user == current_user %>
+  <article>
+    <h3>Pending Requests</h3>
+    <% @user.pending_friends.each do |user| %>
+    <br>
+    <%= user.name %>
+    <% end %>
+  </article>
+  <article>
+    <h3>Friend Requests</h3>
+    <% @user.friend_requests.each do |user| %>
+      <br>
+      <%= user.name %>
+      <button><%=link_to 'Confirm', confirm_path(user_id: user.id), method: :post %></button>
+      <button><%=link_to 'Deny', deny_friend_path(user_id: user.id), method: :delete %></button>
+    <% end %>
+  </article>
+  <% end %>
 </section>
