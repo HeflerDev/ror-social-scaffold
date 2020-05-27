@@ -59,11 +59,11 @@ Open `http://localhost:3000/` in your browser.
 
 ### Deployment
 
-TBA
+Henrique Hefler | [Github](https://github.com/HeflerDev)
 
 ## Authors
 
-TBA
+Henrique Hefler | [Github](https://github.com/HeflerDev)
 
 ## 🤝 Contributing
 
